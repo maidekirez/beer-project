@@ -1,12 +1,13 @@
 import React,{createContext, useContext, useState} from 'react';
 
+
 export const BeerContext=createContext();
 
 export default function BeerContextsProvider({children}) {
 
 const [beerData,setBeerData]=useState([]);
 const [pHData,setPHData]=useState([]);
-const [toggleVolume,setToggleVolume]=useState('');
+const [toggleVolume,setToggleVolume]=useState('none');
 const [alcoholVolume,setAlcoholVolume]=useState(0);
 
 const value={

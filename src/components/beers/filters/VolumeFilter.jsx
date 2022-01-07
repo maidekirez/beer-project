@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React, { useContext, useState } from 'react'
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -11,11 +11,39 @@ function valuetext(value) {
 
 export default function VolumeFilter() {
 
-    const {alcoholVolume}=useContext(BeerContext);
-    const [alignment, setAlignment] = React.useState('web');
+    const { alcoholVolume, setToggleVolume, toggleVolume, setAlcoholVolume } = useContext(BeerContext);
+    const [noneDisable, setNoneDisable] = useState(false);
+    const [greaterDisable, setGreaterDisable] = useState(false);
+    const [lowerDisable, setLowerDisable] = useState(false);
 
-    const handleChange = (event, newAlignment) => {
-        setAlignment(newAlignment);
+    const handleChange = (event) => {
+        const { value, name } = event.target;
+        if (name === 'none') {
+            setGreaterDisable(true);
+            setLowerDisable(true);
+            setAlcoholVolume(null)
+        }
+        else if (name === 'abv_gt') {
+            setNoneDisable(true);
+            setLowerDisable(true);
+        }
+        else if (name === 'abv_lt') {
+            setNoneDisable(true);
+            setGreaterDisable(true);
+        }
+        else if(name==='reset') {
+            setGreaterDisable(false);
+            setLowerDisable(false);
+            setNoneDisable(false);
+            setAlcoholVolume(null)
+
+        }
+
+        if(name!=='reset' || name!=='none'){
+            setToggleVolume(value);
+        }
+       
+
     };
 
     return (
@@ -28,25 +56,26 @@ export default function VolumeFilter() {
             <div className="col-4">
                 <ToggleButtonGroup
                     color="primary"
-                    value={alignment}
+                    value={toggleVolume}
                     exclusive
-                    onChange={handleChange}
+                    onClick={(e) => handleChange(e)}
                 >
-                    <ToggleButton value="web">None</ToggleButton>
-                    <ToggleButton value="android">Greater Than</ToggleButton>
-                    <ToggleButton value="ios">Lower Than</ToggleButton>
+                    <ToggleButton value="" name="none" disabled={noneDisable} >None</ToggleButton>
+                    <ToggleButton value="abv_gt" name="abv_gt" disabled={greaterDisable}>Greater Than</ToggleButton>
+                    <ToggleButton value="abv_lt" name="abv_lt" disabled={lowerDisable}>Lower Than</ToggleButton>
+                    <ToggleButton value="" name="reset" >Reset</ToggleButton>
                 </ToggleButtonGroup>
             </div>
             <div className="col-4">
                 <Box >
                     <Slider
-
+                        disabled={!noneDisable}
                         aria-label="Minimum SRM"
                         defaultValue={alcoholVolume}
                         getAriaValueText={valuetext}
                         valueLabelDisplay="auto"
                         step={1}
-
+                        onChange={(e) => setAlcoholVolume(e.target.value)}
                         min={0}
                         max={100}
 
