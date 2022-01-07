@@ -10,7 +10,7 @@ export default function Footer() {
                         <ul className='list-unstyled mt-3'>
                             <li className="text-light">
                                 <p>
-                                    Maide KIRAZ : maidekiraz@gmail.com
+                                    Maide KIREZ : maidekirez@gmail.com
                                 </p>
                             </li>
                             <li className="text-light"><p>
