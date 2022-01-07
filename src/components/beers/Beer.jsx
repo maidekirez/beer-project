@@ -1,7 +1,7 @@
 import React from 'react'
-import BeerFilters from './BeerFilters'
 import BeerList from './BeerList'
 import BeerSearch from './BeerSearch'
+import BeerFilters from './filters/BeerFilters'
 
 export default function Beer() {
     return (
