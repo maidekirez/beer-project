@@ -7,18 +7,32 @@ import { BeerContext } from '../../../contexts/BeerContextsProvider';
 
 export default function BeerFilters() {
 
-    const URL="https://api.punkapi.com/v2/beers?page=1&per_page=3"
+    const URL="https://api.punkapi.com/v2/beers?"
 
-    const {alcoholVolume,toggleVolume,setBeerData}=useContext(BeerContext);
+    const {alcoholVolume,toggleVolume,setBeerData,setCurrentPage,setPageCount,currentPage,setUrl}=useContext(BeerContext);
+
+    //Alkol oranı değiştikçe state olarak çektiğim setUrlin içini parametreli url e dönüştürdüm.Çünkü sayfa sayısı değiştiğinde bu parametreli url e ihtiyacımız var.
     useEffect(() => {
-        if(alcoholVolume!==null){
-            fetch(`${URL}&${toggleVolume}=${alcoholVolume}`).then(response=>response.json()).then(data=>{
-                setBeerData(data);
+        if(alcoholVolume!==null && toggleVolume!=='none'){
+            fetch(`${URL}page=1&per_page=60&${toggleVolume}=${alcoholVolume}`).then(response=>response.json()).then(data=>{
+                setCurrentPage(1);
+                setPageCount(data.length/3);
+                
             })
+            fetch(`${URL}page=1&per_page=3&${toggleVolume}=${alcoholVolume}`).then(response=>response.json()).then(data=>{
+                setUrl(`${URL}page=${currentPage}&per_page=3&${toggleVolume}=${alcoholVolume}`)
+                setCurrentPage(1)
+                setBeerData(data);
+               
+            })
+            
         }
         else{
-            fetch(URL).then(response=>response.json()).then(data=>{
+
+            fetch(`${URL}page=${currentPage}&per_page=3`).then(response=>response.json()).then(data=>{
+                setCurrentPage(1)
                 setBeerData(data);
+                setUrl(URL)
             })
         }
       
