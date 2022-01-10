@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { BeerContext } from '../../../contexts/BeerContextsProvider';
 
 function valuetext(value) {
     return `${value}`;
 }
 
 export default function PhFilter() {
-    const [valuePH, setValuePH] = React.useState([0, 1]);
+    const { phChecked, setPhChecked, pHData, setPHData } = useContext(BeerContext);
     const minDistance = 0;
     const handleChangePH = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
@@ -17,35 +18,37 @@ export default function PhFilter() {
         }
 
         if (activeThumb === 0) {
-            setValuePH([Math.min(newValue[0], valuePH[1] - minDistance), valuePH[1]]);
+            setPHData([Math.min(newValue[0], pHData[1] - minDistance), pHData[1]]);
         } else {
-            setValuePH([valuePH[0], Math.max(newValue[1], valuePH[0] + minDistance)]);
+            setPHData([pHData[0], Math.max(newValue[1], pHData[0] + minDistance)]);
         }
     };
     return (
         <div className="row my-4">
-        <div className="col-3">
-            <FormControlLabel
-                value="start"
-                control={<Checkbox />}
-                label="PH"
-                labelPlacement="start"
-            />
-        </div>
-        <div className="col-6">
-            <Box >
-                <Slider
-                    min={0}
-                    max={7}
-                    getAriaLabel={() => 'Minimum distance'}
-                    value={valuePH}
-                    onChange={handleChangePH}
-                    valueLabelDisplay="auto"
-                    getAriaValueText={valuetext}
-                    disableSwap
+            <div className="col-3">
+                <FormControlLabel
+                    value="start"
+                    control={<Checkbox />}
+                    label="PH"
+                    labelPlacement="start"
+                    onClick={() => setPhChecked(prev => !prev)}
                 />
-            </Box>
+            </div>
+            <div className="col-6">
+                <Box >
+                    <Slider
+                        min={0}
+                        max={7}
+                        getAriaLabel={() => 'Minimum distance'}
+                        value={pHData}
+                        onChange={handleChangePH}
+                        valueLabelDisplay="auto"
+                        getAriaValueText={valuetext}
+                        disableSwap
+                        disabled={phChecked}
+                    />
+                </Box>
+            </div>
         </div>
-    </div>
     )
 }
