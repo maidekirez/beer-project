@@ -16,7 +16,7 @@ const [data, setData] = useState([]);
 const [search, setSearch] = useState("");
 const [url,setUrl]=useState('https://api.punkapi.com/v2/beers?') //her filtreleme işleminde url değiştirmek için state olarak tanımladım.
 const [pHData,setPHData]=useState([0,1]);
-const [phChecked,setPhCehcked]=useState(true);
+const [phChecked,setPhChecked]=useState(true);
 const [filteredData,setFilteredData]=useState([]);
 const [listedFilteredData,setListedFiltredData]=useState([]);
 
@@ -37,7 +37,7 @@ const value={
     pageCount,setPageCount,
     currentPage,setCurrentPage,
     url,setUrl,
-    phChecked,setPhCehcked,
+    phChecked,setPhChecked,
     filteredData,setFilteredData,
     listedFilteredData,setListedFiltredData,
     data, setData,

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { BeerContext } from '../../contexts/BeerContextsProvider';
 
 export default function BeerList() {
-    const { beerData, listedFilteredData,p } = useContext(BeerContext);
+    const { beerData, listedFilteredData,phChecked } = useContext(BeerContext);
     useEffect(() => {
 
         console.log(beerData)
@@ -15,7 +15,7 @@ export default function BeerList() {
 
 
 
-                {listedFilteredData.length > 0 ?
+                {listedFilteredData.length > 0  && !phChecked ?
                     listedFilteredData.map((post, index) => (
                         <div className="col-4">
                             <div className="card mb-3 text-center ">

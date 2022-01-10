@@ -45,21 +45,49 @@ export default function BeerFilters() {
 
         console.log(pHData);
         if (!phChecked) {
-            fetch("https://api.punkapi.com/v2/beers?page=1&per_page=60").then(response => response.json()).then(data => {
-                const newData = data.filter(beer => 
-                   beer.ph > parseFloat(pHData[0]) && beer.ph <= parseFloat(pHData[1]) );
-                setFilteredData(newData);
-                setPageCount(newData.length / 3);
-                setCurrentPage(1);
-            })
+            if (alcoholVolume !== null && toggleVolume !== 'none'){
+
+                fetch(`${URL}page=1&per_page=60&${toggleVolume}=${alcoholVolume}`).then(response => response.json()).then(data => {
+                    
+                    const newData = data.filter(beer =>
+                        beer.ph > parseFloat(pHData[0]) && beer.ph <= parseFloat(pHData[1]));
+                        console.log(newData);
+                    setFilteredData(newData);
+                    setPageCount(newData.length / 3);
+                    setCurrentPage(1);
+                })
+                
+                
+            }
+            else{
+                fetch("https://api.punkapi.com/v2/beers?page=1&per_page=60").then(response => response.json()).then(data => {
+                    const newData = data.filter(beer =>
+                        beer.ph > parseFloat(pHData[0]) && beer.ph <= parseFloat(pHData[1]));
+                    setFilteredData(newData);
+                    setPageCount(newData.length / 3);
+                    setCurrentPage(1);
+                })
+            }
+           
+
+        }
+        else {
 
         }
 
-
-
-
-
     }, [pHData])
+    useEffect(() => {
+
+
+        if (phChecked === true && 1 !== 0) {
+
+            setPageCount(60 / 3);
+            setCurrentPage(1);
+
+        }
+       
+    }, [phChecked])
+
 
     return (
         <div>

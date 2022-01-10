@@ -10,7 +10,7 @@ function valuetext(value) {
 }
 
 export default function PhFilter() {
-    const { phChecked, setPhCehcked, pHData, setPHData } = useContext(BeerContext);
+    const { phChecked, setPhChecked, pHData, setPHData } = useContext(BeerContext);
     const minDistance = 0;
     const handleChangePH = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
@@ -31,7 +31,7 @@ export default function PhFilter() {
                     control={<Checkbox />}
                     label="PH"
                     labelPlacement="start"
-                    onClick={() => setPhCehcked(prev => !prev)}
+                    onClick={() => setPhChecked(prev => !prev)}
                 />
             </div>
             <div className="col-6">
