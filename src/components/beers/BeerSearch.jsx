@@ -1,31 +1,52 @@
-import { useContext } from "react/cjs/react.development";
-import { BeerContext } from '../../contexts/BeerContextsProvider';
-//debounce perform
-import debounce from "lodash.debounce";
+import React, { useContext, useState,useEffect } from "react";
+import { BeerContext } from "../../contexts/BeerContextsProvider";
 
-function BeerSearch() {
-  const { setSearch } = useContext(BeerContext);
 
-  const updateQuery = (e) => setSearch(e?.target?.value);
+export default function BeerSearch() {
+  const { beerData, setBeerData } = useContext(BeerContext);
+  const [searchValue, setSearchValue] = useState("");
 
-  const debouncedOnChange = debounce(updateQuery, 3000);
+useEffect(()=>{
+  
+  const newData = beerData.filter((post) =>
+    post.name.toLowerCase().includes(searchValue)
+  );
+  setBeerData(newData);
 
+
+
+},[searchValue])
+
+  
   return (
     <>
-      <div className="search-container my-5">
-        <input
-          className="sbx-custom__input"
-          type="text"
-          onChange={debouncedOnChange}
-          placeholder={" Search Beer "}
-        />
-        <div className="py-3">
-        <button type="submit" className="btn btn-primary">
-          Reset
-        </button>
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="mb-3">
+                <form>
+                  <input
+                    name="search"
+                    type="text"
+                    className="form-control"
+                    placeholder="search beers by name"
+                    id="search"
+                    onChange={(e) => setSearchValue(e.target.value)}
+                  />
+                  <button
+                    type="reset"
+                    className="btn btn-warning mx-1 mt-3"
+                    value="Reset"
+                  >
+                    Reset
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
 }
-export default BeerSearch;
