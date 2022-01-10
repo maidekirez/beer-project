@@ -24,9 +24,16 @@ export default function Footer() {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-6">
-                    <h5 className="text-light">Technologies</h5> </div>
-                </div>
+                    <div className="row">
+                        </div>
+          <div className="col-12 col-md">
+          <div className="text-center p-3" >
+   
+  <div className="text-light" to="#">© 2022 Copyright Powerpuff Girls Technologies</div>
+</div>
+</div>
+          
+        </div>
             </div>
 
         </footer>
