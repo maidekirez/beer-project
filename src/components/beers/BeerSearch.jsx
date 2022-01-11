@@ -1,23 +1,23 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BeerContext } from "../../contexts/BeerContextsProvider";
 
 
 export default function BeerSearch() {
-  const { beerData, setBeerData } = useContext(BeerContext);
+  const { beerData, setBeerData, setIsReset, setSearch, search } = useContext(BeerContext);
   const [searchValue, setSearchValue] = useState("");
 
-useEffect(()=>{
-  
-  const newData = beerData.filter((post) =>
-    post.name.toLowerCase().includes(searchValue)
-  );
-  setBeerData(newData);
+  const handlerSubmit = (e) => {
+
+    if (!searchValue) return;
+    e.preventDefault();
 
 
+    setSearch(searchValue)
+    setSearchValue("");
 
-},[searchValue])
+  }
 
-  
+
   return (
     <>
       <div>
@@ -25,23 +25,27 @@ useEffect(()=>{
           <div className="row">
             <div className="col-sm-12">
               <div className="mb-3">
-                <form>
+                <form onSubmit={handlerSubmit}>
                   <input
                     name="search"
                     type="text"
                     className="form-control"
                     placeholder="search beers by name"
                     id="search"
+                    value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
+
                   />
-                  <button
-                    type="reset"
-                    className="btn btn-warning mx-1 mt-3"
-                    value="Reset"
-                  >
-                    Reset
-                  </button>
                 </form>
+                <button
+                  type="reset"
+                  className="btn btn-warning mx-1 mt-3"
+                  value="Reset"
+                  onClick={() => setIsReset(true)}
+                >
+                  Reset
+                </button>
+
               </div>
             </div>
           </div>

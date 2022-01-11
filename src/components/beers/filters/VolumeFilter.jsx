@@ -63,7 +63,7 @@ export default function VolumeFilter() {
                     <ToggleButton value="" name="none" disabled={noneDisable} >None</ToggleButton>
                     <ToggleButton value="abv_gt" name="abv_gt" disabled={greaterDisable}>Greater Than</ToggleButton>
                     <ToggleButton value="abv_lt" name="abv_lt" disabled={lowerDisable}>Lower Than</ToggleButton>
-                    <ToggleButton value="" name="reset" >Reset</ToggleButton>
+                  
                 </ToggleButtonGroup>
             </div>
             <div className="col-4">
