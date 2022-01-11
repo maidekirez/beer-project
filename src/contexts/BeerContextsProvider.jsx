@@ -19,14 +19,7 @@ const [pHData,setPHData]=useState([0,1]);
 const [phChecked,setPhChecked]=useState(true);
 const [filteredData,setFilteredData]=useState([]);
 const [listedFilteredData,setListedFiltredData]=useState([]);
-
-const getFilteredItems = (search, data) => {
-    if (!search) {
-      return data;
-    }
-    return data.filter((item) => item.name.toLowerCase().includes(search));
-  };
-  const filteredItems = getFilteredItems(search, data);
+const [isReset,setIsReset]=useState(false);
 
 
 const value={
@@ -42,6 +35,7 @@ const value={
     listedFilteredData,setListedFiltredData,
     data, setData,
     search, setSearch,
+    isReset,setIsReset
 }
 
     return (
